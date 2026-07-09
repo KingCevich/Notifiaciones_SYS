@@ -13,27 +13,27 @@ from .tasks import send_notification, get_notification_stats
 
 MENSAJES = {
     "reporte_creado": {
-        "titulo": "✅ Reporte publicado",
+        "titulo": " Reporte publicado",
         "mensaje": "Tu reporte '{nombre}' fue publicado exitosamente.",
     },
     "reporte_fallido": {
-        "titulo": "❌ Error al publicar reporte",
+        "titulo": " Error al publicar reporte",
         "mensaje": "Hubo un problema al publicar tu reporte '{nombre}'. Intenta de nuevo.",
     },
     "ia_completada": {
-        "titulo": "🔍 Análisis de IA completado",
+        "titulo": " Análisis de IA completado",
         "mensaje": "Se encontraron {cantidad} posible(s) coincidencia(s) para '{nombre}' (mayor similitud: {score}%).",
     },
     "ia_sin_coincidencias": {
-        "titulo": "🔍 Sin coincidencias por ahora",
+        "titulo": " Sin coincidencias por ahora",
         "mensaje": "La IA analizó '{nombre}' pero no encontró coincidencias aún. Te avisaremos si aparece algo.",
     },
     "ia_fallida": {
-        "titulo": "⚠️ Error en análisis de IA",
+        "titulo": " Error en análisis de IA",
         "mensaje": "No se pudo analizar la foto de '{nombre}'. Las coincidencias textuales siguen activas.",
     },
     "coincidencia_nueva": {
-        "titulo": "🐾 ¡Posible coincidencia encontrada!",
+        "titulo": " Posible coincidencia encontrada",
         "mensaje": "Un nuevo reporte de '{raza}' cerca de tu zona tiene {score}% de similitud con tu mascota.",
     },
 }
