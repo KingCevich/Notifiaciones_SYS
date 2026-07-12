@@ -1,0 +1,43 @@
+# Python/Django
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+# Ignore environment and local secret settings
+.env
+*.env
+local_settings.py
+secret_key.py
+secrets.py
+
+# Django database and media
+db.sqlite3
+/media/
+
+# Virtual environments
+venv/
+env/
+ENV/
+.sys_venv/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Coverage
+.coverage
+htmlcov/
+
+# Virtual environments
+sys_venv/
+ia_venv/
+venv/
+env/
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
