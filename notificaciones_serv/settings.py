@@ -1,11 +1,14 @@
 from pathlib import Path
 import os
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-notificaciones-sanos-y-salvos-local'
-DEBUG      = True
-ALLOWED_HOSTS = ['*']
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-notificaciones-sanos-y-salvos-local')
+
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -46,14 +49,9 @@ TEMPLATES = [{
 }]
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'notificaciones_db',
-        'USER': 'user_notificaciones',
-        'PASSWORD': 'pass123',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.parse(
+        os.environ.get('DATABASE_URL', 'postgresql://user_notificaciones:pass123@localhost:5432/notificaciones_db')
+    )
 }
 
 LANGUAGE_CODE = 'es-cl'
@@ -64,16 +62,10 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CORS — frontend + otros servicios
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://localhost:5173",
-    "http://127.0.0.1:3000",
-    "http://127.0.0.1:5173",
-    "http://localhost:8002",   # mascotas_serv
-    "http://127.0.0.1:8002",
-    "http://localhost:8003",   # bff
-    "http://127.0.0.1:8003",
-]
+CORS_ALLOWED_ORIGINS = os.environ.get(
+    'CORS_ALLOWED_ORIGINS',
+    'http://localhost:3000,http://localhost:5173,http://127.0.0.1:3000,http://127.0.0.1:5173,http://localhost:8002,http://127.0.0.1:8002,http://localhost:8003,http://127.0.0.1:8003'
+).split(',')
 CORS_ALLOW_CREDENTIALS = True
 
 REST_FRAMEWORK = {
@@ -82,8 +74,8 @@ REST_FRAMEWORK = {
 }
 
 # Celery + Redis (notificaciones no lo usa, pero si el worker quiere correr aquí)
-CELERY_BROKER_URL     = 'redis://localhost:6379/2'   # distinto al de mascotas (0)
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/3'
+CELERY_BROKER_URL     = os.environ.get('REDIS_URL', 'redis://localhost:6379/2')
+CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL', 'redis://localhost:6379/3')
 CELERY_ACCEPT_CONTENT     = ['json']
 CELERY_TASK_SERIALIZER    = 'json'
 CELERY_RESULT_SERIALIZER  = 'json'
@@ -96,3 +88,5 @@ LOGGING = {
     'handlers': {'console': {'class': 'logging.StreamHandler'}},
     'root': {'handlers': ['console'], 'level': 'INFO'},
 }
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
