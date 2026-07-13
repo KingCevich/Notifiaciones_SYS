@@ -51,7 +51,7 @@ TEMPLATES = [{
 
 DATABASES = {
     'default': dj_database_url.parse(
-        os.environ.get('DATABASE_URL', 'postgresql://user_notificaciones:pass123@localhost:5432/notificaciones_db')
+        os.environ.get('DATABASE_URL', 'postgresql://user_notificaciones:pass123@localhost:5432/notificaciones_db?sslmode=require')
     )
 }
 
@@ -65,7 +65,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CORS — frontend + otros servicios
 CORS_ALLOWED_ORIGINS = os.environ.get(
     'CORS_ALLOWED_ORIGINS',
-    'http://localhost:3000,http://localhost:5173,http://127.0.0.1:3000,http://127.0.0.1:5173,http://localhost:8002,http://127.0.0.1:8002,http://localhost:8003,http://127.0.0.1:8003'
+    'http://localhost:5173,http://localhost:3000'
 ).split(',')
 CORS_ALLOW_CREDENTIALS = True
 
